@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+
 const userRoute = require("./routes/user");
+const queryRoute = require("./routes/query");
 
 const app = express();
 const http = require("http").createServer(app);
@@ -17,6 +19,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/user", userRoute);
+app.use("/api/queries", queryRoute);
 
 // MongoDB Connection
 mongoose
