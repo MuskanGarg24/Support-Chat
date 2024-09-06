@@ -12,7 +12,7 @@ const {
 
 const router = require("express").Router();
 router.post("/add", addQuery);
-router.get("/all", getQueries);
+router.post("/all", getQueries);
 router.post("/search", searchQuery);
 router.post("/slots", getSlots);
 router.post("/resolve", resolveQuery);

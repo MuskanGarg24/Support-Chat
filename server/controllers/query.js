@@ -24,7 +24,7 @@ const addQuery = async (req, res) => {
   }
 };
 
-// Function to get all queries from the database
+// Function to get all queries of a user from the database
 const getQueries = async (req, res) => {
   try {
     const { userId } = req.body;
