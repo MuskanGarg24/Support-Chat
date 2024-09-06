@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import Home from "./pages/Home";
+import CustomerResolve from "./pages/CustomerResolve";
 
 const App = () => {
   return (
@@ -14,6 +15,10 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ProtectedRoute Component={Home} />} />
+          <Route
+            path="/resolve"
+            element={<ProtectedRoute Component={CustomerResolve} />}
+          />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
         </Routes>

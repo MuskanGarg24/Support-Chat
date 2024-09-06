@@ -67,7 +67,7 @@ const Customer = () => {
 
   return (
     <div className="px-9">
-      <div className="grid grid-cols-2 gap-20">
+      <div className="md:grid md:grid-cols-2 gap-20">
         {/* Submit Query */}
         <form className="mt-7" onSubmit={submitQuery}>
           <h1 className="text-lg my-5 font-medium">

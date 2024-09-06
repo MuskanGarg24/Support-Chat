@@ -29,10 +29,10 @@ const Navbar = () => {
             </div>
             {/* primary */}
             <div className="hidden lg:flex gap-8 ">
-              <Link href="/" className="font-medium hover:text-purple-500">
+              <Link to="/" className="font-medium hover:text-purple-500">
                 My Queries
               </Link>
-              <Link href="#" className="font-medium hover:text-purple-500">
+              <Link to="/resolve" className="font-medium hover:text-purple-500">
                 Resolved Queries
               </Link>
             </div>
@@ -69,12 +69,12 @@ const Navbar = () => {
       >
         <div className="px-8">
           <div className="flex flex-col gap-8 font-bold tracking-wider">
-            <Link href="#" className="mt-5">
+            <Link to="/" className="mt-5">
               My Queries
             </Link>
-            <Link href="#">Resolved Queries</Link>
-            <Link href="#">Signup</Link>
-            <Link href="#">Logout</Link>
+            <Link to="/resolve">Resolved Queries</Link>
+            <Link to="/signup">Signup</Link>
+            <Link to="#">Logout</Link>
           </div>
         </div>
       </div>

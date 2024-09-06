@@ -16,7 +16,7 @@ router.post("/all", getQueries);
 router.post("/search", searchQuery);
 router.post("/slots", getSlots);
 router.post("/resolve", resolveQuery);
-router.get("/admin", getCurrentAdminQueries);
-router.get("/customer", getCurrentCustomerQueries);
+router.post("/admin", getCurrentAdminQueries);
+router.post("/customer", getCurrentCustomerQueries);
 
 module.exports = router;
