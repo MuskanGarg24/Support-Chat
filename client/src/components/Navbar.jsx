@@ -34,7 +34,10 @@ const Navbar = () => {
               <Link to="/" className="font-medium hover:text-purple-500">
                 {isAdmin ? "All Queries" : "My Queries"}
               </Link>
-              <Link to="/resolve" className="font-medium hover:text-purple-500">
+              <Link
+                to={`${isAdmin ? "/toResolve" : "/resolve"}`}
+                className="font-medium hover:text-purple-500"
+              >
                 {isAdmin ? "To Resolve" : "Resolved Queries"}
               </Link>
             </div>

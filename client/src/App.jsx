@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import Home from "./pages/Home";
 import CustomerResolve from "./pages/CustomerResolve";
+import AdminResolve from "./pages/AdminResolve";
 
 const App = () => {
   return (
@@ -18,6 +19,10 @@ const App = () => {
           <Route
             path="/resolve"
             element={<ProtectedRoute Component={CustomerResolve} />}
+          />
+          <Route
+            path="/toResolve"
+            element={<ProtectedRoute Component={AdminResolve} />}
           />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
