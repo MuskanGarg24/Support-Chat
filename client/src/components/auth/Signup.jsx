@@ -1,32 +1,53 @@
 import { useState } from "react";
-import { signupFields } from "../../constants/formFields";
+import { useNavigate } from "react-router-dom";
 import Input from "./Input";
 import FormAction from "./FormAction";
-import FormExtra from "./FormExtra";
+import { signupFields } from "../../constants/formFields";
+import { signupRoute } from "../../utils/routes";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const fields = signupFields;
 let fieldsState = {};
-
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
 const Signup = () => {
-  const [signupState, setSignupState] = useState(fieldsState);
+  const [signupState, setSignupState] = useState({
+    ...fieldsState,
+    isAdmin: false,
+  });
 
-  const handleChange = (e) =>
-    setSignupState({ ...signupState, [e.target.id]: e.target.value });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(signupState);
-    createAccount();
+  const handleChange = (e) => {
+    const { id, value, type, checked } = e.target;
+    setSignupState({
+      ...signupState,
+      [id]: type === "checkbox" ? checked : value,
+    });
   };
 
-  //handle Signup API Integration here
-  const createAccount = () => {};
+  const navigate = useNavigate();
+
+  // Signup API Integration
+  const createAccount = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(signupRoute, {
+        username: signupState.username,
+        email: signupState.email,
+        password: signupState.password,
+        isAdmin: signupState.isAdmin,
+      });
+      localStorage.setItem("branchInternational", JSON.stringify(response.data.user));
+      toast.success(response.data.message);
+      navigate("/");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
-    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-      <div className="">
+    <form className="mt-8 space-y-6" onSubmit={createAccount}>
+      <div>
         {fields.map((field) => (
           <Input
             key={field.id}
@@ -41,8 +62,23 @@ const Signup = () => {
             placeholder={field.placeholder}
           />
         ))}
-        <FormExtra showCheckbox={true} />
-        <FormAction handleSubmit={handleSubmit} text="Signup" />
+        <div className="flex items-center">
+          <input
+            id="isAdmin"
+            name="isAdmin"
+            type="checkbox"
+            className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded cursor-pointer"
+            checked={signupState.isAdmin}
+            onChange={handleChange}
+          />
+          <label
+            htmlFor="isAdmin"
+            className="ml-2 block text-sm font-medium text-purple-600"
+          >
+            Are you an Agent?
+          </label>
+        </div>
+        <FormAction handleSubmit={createAccount} text="Signup" />
       </div>
     </form>
   );

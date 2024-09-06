@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { loginFields } from "../../constants/formFields";
+import { useNavigate } from "react-router-dom";
 import Input from "./Input";
 import FormAction from "./FormAction";
-import FormExtra from "./FormExtra";
+import { loginFields } from "../../constants/formFields";
+import { loginRoute } from "../../utils/routes";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const fields = loginFields;
 let fieldsState = {};
@@ -15,16 +18,26 @@ const Login = () => {
     setLoginState({ ...loginState, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  // Login API Integration
+  const authenticateUser = async (e) => {
     e.preventDefault();
-    authenticateUser();
+    try {
+      const response = await axios.post(loginRoute, {
+        username: loginState.username,
+        password: loginState.password,
+      });
+      localStorage.setItem("branchInternational", JSON.stringify(response.data.user));
+      toast.success(response.data.message);
+      navigate("/");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 
-  //Handle Login API Integration here
-  const authenticateUser = () => {};
-
   return (
-    <form className="mt-8 space-y-6">
+    <form className="mt-8 space-y-6" onSubmit={authenticateUser}>
       <div className="-space-y-px">
         {fields.map((field) => (
           <Input
@@ -41,8 +54,7 @@ const Login = () => {
           />
         ))}
       </div>
-      <FormExtra showCheckbox={false} />
-      <FormAction handleSubmit={handleSubmit} text="Login" />
+      <FormAction handleSubmit={authenticateUser} text="Login" />
     </form>
   );
 };

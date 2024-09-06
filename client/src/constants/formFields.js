@@ -3,8 +3,8 @@
 const loginFields = [
   {
     labelText: "Username",
-    labelFor: "user-name",
-    id: "user-name",
+    labelFor: "username",
+    id: "username",
     name: "username",
     type: "text",
     isRequired: true,
@@ -33,8 +33,8 @@ const signupFields = [
   },
   {
     labelText: "Email address",
-    labelFor: "email-address",
-    id: "email-address",
+    labelFor: "email",
+    id: "email",
     name: "email",
     type: "email",
     isRequired: true,
@@ -48,16 +48,7 @@ const signupFields = [
     type: "password",
     isRequired: true,
     placeholder: "Password",
-  },
-  {
-    labelText: "Confirm Password",
-    labelFor: "confirm-password",
-    id: "confirm-password",
-    name: "confirm-password",
-    type: "password",
-    isRequired: true,
-    placeholder: "Confirm Password",
-  },
+  }
 ];
 
 export { loginFields, signupFields };
