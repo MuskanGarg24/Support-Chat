@@ -12,6 +12,8 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const isAdmin = JSON.parse(localStorage.getItem("branchInternational")).admin;
+
   return (
     <nav>
       <div className="w-full px-7">
@@ -30,10 +32,10 @@ const Navbar = () => {
             {/* primary */}
             <div className="hidden lg:flex gap-8 ">
               <Link to="/" className="font-medium hover:text-purple-500">
-                My Queries
+                {isAdmin ? "All Queries" : "My Queries"}
               </Link>
               <Link to="/resolve" className="font-medium hover:text-purple-500">
-                Resolved Queries
+                {isAdmin ? "To Resolve" : "Resolved Queries"}
               </Link>
             </div>
           </div>
@@ -70,11 +72,13 @@ const Navbar = () => {
         <div className="px-8">
           <div className="flex flex-col gap-8 font-bold tracking-wider">
             <Link to="/" className="mt-5">
-              My Queries
+              {isAdmin ? "All Queries" : "My Queries"}
             </Link>
-            <Link to="/resolve">Resolved Queries</Link>
+            <Link to="/resolve">
+              {isAdmin ? "To Resolve" : "Resolved Queries"}
+            </Link>
             <Link to="/signup">Signup</Link>
-            <Link to="#">Logout</Link>
+            <button onClick={handleLogout}>Logout</button>
           </div>
         </div>
       </div>

@@ -1,20 +1,15 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Customer from "../components/Customer/Customer";
+import Admin from "../components/Admin/Admin";
 
 const Home = () => {
-  const isAdmin = false;
+  const isAdmin = JSON.parse(localStorage.getItem("branchInternational")).admin;
 
   return (
     <>
       <Navbar />
-      {isAdmin ? (
-        <div className="flex justify-center items-center h-screen">
-          <h1 className="text-2xl font-bold">Welcome Admin</h1>
-        </div>
-      ) : (
-        <Customer />
-      )}
+      {isAdmin ? <Admin /> : <Customer />}
     </>
   );
 };
