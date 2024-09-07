@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { getQueries } from "../../utils/routes";
+import { io } from "socket.io-client";
+import { getQueries, host, getSlots } from "../../utils/routes";
 import { toast } from "react-toastify";
-import { getSlots } from "../../utils/routes";
 
 const Admin = () => {
   const username = JSON.parse(
@@ -14,6 +14,7 @@ const Admin = () => {
 
   const [queries, setQueries] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const socket = useRef();
 
   // Function to get all the queries
   const fetchQueries = async () => {
@@ -27,9 +28,22 @@ const Admin = () => {
     }
   };
 
-  // Fetch all the queries using useEffect
+  // Initialize socket connection and listen for new messages
   useEffect(() => {
     fetchQueries();
+    socket.current = io(host); // Connect to the socket server
+
+    // Listen for incoming messages
+    socket.current.on("message", (msg) => {
+      setQueries((prevQueries) => [
+        ...prevQueries,
+        { message: msg.message, userId: msg.userId, timestamp: Date.now() },
+      ]);
+    });
+
+    return () => {
+      socket.current.disconnect(); // Clean up the socket connection
+    };
   }, []);
 
   // Filter queries based on search term (both username and message)

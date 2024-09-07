@@ -4,7 +4,15 @@ import Customer from "../components/Customer/Customer";
 import Admin from "../components/Admin/Admin";
 
 const Home = () => {
-  const isAdmin = JSON.parse(localStorage.getItem("branchInternational")).admin;
+  if (!localStorage.getItem("branchInternational")) {
+    window.location.href = "/login";
+  }
+
+  const isAdmin = JSON.parse(
+    localStorage.getItem("branchInternational")
+  ).admin;
+
+  console.log(isAdmin);
 
   return (
     <>
