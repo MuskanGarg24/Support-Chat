@@ -6,12 +6,14 @@ import { getQueries, host, getSlots } from "../../utils/routes";
 import { toast } from "react-toastify";
 
 const Admin = () => {
+  // Get the username from the local storage
   const username = JSON.parse(
     localStorage.getItem("branchInternational")
   ).username;
 
   const navigate = useNavigate();
 
+  // Define the state variables
   const [queries, setQueries] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const socket = useRef();
@@ -31,18 +33,15 @@ const Admin = () => {
   // Initialize socket connection and listen for new messages
   useEffect(() => {
     fetchQueries();
-    socket.current = io(host); // Connect to the socket server
-
-    // Listen for incoming messages
+    socket.current = io(host);
     socket.current.on("message", (msg) => {
       setQueries((prevQueries) => [
         ...prevQueries,
         { message: msg.message, userId: msg.userId, timestamp: Date.now() },
       ]);
     });
-
     return () => {
-      socket.current.disconnect(); // Clean up the socket connection
+      socket.current.disconnect();
     };
   }, []);
 

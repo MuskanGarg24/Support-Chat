@@ -12,11 +12,13 @@ let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
 const Signup = () => {
+  // Signup State
   const [signupState, setSignupState] = useState({
     ...fieldsState,
     isAdmin: false,
   });
 
+  // Handle Change
   const handleChange = (e) => {
     const { id, value, type, checked } = e.target;
     setSignupState({
@@ -37,7 +39,10 @@ const Signup = () => {
         password: signupState.password,
         isAdmin: signupState.isAdmin,
       });
-      localStorage.setItem("branchInternational", JSON.stringify(response.data.user));
+      localStorage.setItem(
+        "branchInternational",
+        JSON.stringify(response.data.user)
+      );
       toast.success(response.data.message);
       navigate("/");
     } catch (error) {

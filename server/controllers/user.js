@@ -1,8 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
-// The register function takes the user data from the request body and checks if the username and email already exist in the database. If the username or email already exists, it returns an error message. If the username and email do not exist, it hashes the password using bcrypt and saves the user data to the database. It then returns a success message along with the user data.
-
+// Function to register a new user
 const signup = async (req, res) => {
   try {
     const { username, email, password, isAdmin } = req.body;
@@ -28,8 +27,7 @@ const signup = async (req, res) => {
   }
 };
 
-// The login function takes the user data from the request body and checks if the username exists in the database. If the username does not exist, it returns an error message. If the username exists, it compares the password with the hashed password in the database using bcrypt. If the password is correct, it returns a success message along with the user data. If the password is incorrect, it returns an error message.
-
+// Function to login a user
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;

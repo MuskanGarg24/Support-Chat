@@ -12,8 +12,10 @@ let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
 const Login = () => {
+  // Login State
   const [loginState, setLoginState] = useState(fieldsState);
 
+  // Handle Change
   const handleChange = (e) => {
     setLoginState({ ...loginState, [e.target.id]: e.target.value });
   };
@@ -28,7 +30,10 @@ const Login = () => {
         username: loginState.username,
         password: loginState.password,
       });
-      localStorage.setItem("branchInternational", JSON.stringify(response.data.user));
+      localStorage.setItem(
+        "branchInternational",
+        JSON.stringify(response.data.user)
+      );
       toast.success(response.data.message);
       navigate("/");
     } catch (error) {

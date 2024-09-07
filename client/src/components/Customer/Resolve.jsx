@@ -5,14 +5,18 @@ import { io } from "socket.io-client";
 import { toast } from "react-toastify";
 
 const Resolve = () => {
+  // Define the state variables
   const [queries, setQueries] = useState([]);
 
+  // Get the username from the local storage
   const username = JSON.parse(
     localStorage.getItem("branchInternational")
   ).username;
 
+  // Define the socket reference
   const socket = useRef();
 
+  // Define the function to fetch the queries
   const fetchQueries = async () => {
     try {
       const response = await axios.post(getCurrentCustomerQueries, {
@@ -24,6 +28,7 @@ const Resolve = () => {
     }
   };
 
+  // Define the function to update the queries
   const updateQueries = (queries, msg) => {
     const objIndex = queries.findIndex((val) => val._id === msg.queryId);
     console.log(objIndex);
@@ -32,6 +37,7 @@ const Resolve = () => {
     return updatedQueries;
   };
 
+  // Fetch the queries and connect to the socket
   useEffect(() => {
     fetchQueries();
     socket.current = io(host);

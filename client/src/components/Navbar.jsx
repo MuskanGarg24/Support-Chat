@@ -77,7 +77,7 @@ const Navbar = () => {
             <Link to="/" className="mt-5">
               {isAdmin ? "All Queries" : "My Queries"}
             </Link>
-            <Link to="/resolve">
+            <Link to={`${isAdmin ? "/toResolve" : "/resolve"}`}>
               {isAdmin ? "To Resolve" : "Resolved Queries"}
             </Link>
             <Link to="/signup">Signup</Link>

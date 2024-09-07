@@ -5,9 +5,11 @@ import { toast } from "react-toastify";
 import { host, addQuery, getQueries } from "../../utils/routes";
 
 const Customer = () => {
+  // Define the state variables
   const [message, setMessage] = useState("");
   const [queries, setQueries] = useState([]);
 
+  // Define the socket reference
   const socket = useRef();
 
   // Function to submit the query

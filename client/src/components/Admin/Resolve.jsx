@@ -5,12 +5,15 @@ import { getAdminQueries, resolveQuery, host } from "../../utils/routes";
 import { toast } from "react-toastify";
 
 const Resolve = () => {
+  // Define the state variables
   const socket = useRef();
 
+  // Get the username from the local storage
   const username = JSON.parse(
     localStorage.getItem("branchInternational")
   ).username;
 
+  // Define the state variables
   const [queries, setQueries] = useState([]);
   const [selectedQuery, setSelectedQuery] = useState(null);
   const [solution, setSolution] = useState("");

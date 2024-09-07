@@ -52,31 +52,6 @@ const getQueries = async (req, res) => {
   }
 };
 
-// Function to search queries in the database
-const searchQuery = async (req, res) => {
-  try {
-    const { search } = req.body;
-    let regex = new RegExp(search, "i");
-    const queries = await Query.find({
-      requested: "",
-      message: { $regex: regex },
-    }).sort({ timestamp: 1 });
-    if (queries) {
-      res.status(200).json({
-        queries,
-      });
-    } else {
-      res.status(400).json({
-        message: "Failed to search queries",
-      });
-    }
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-};
-
 // Function to get the current admin queries that are not resolved
 const getCurrentAdminQueries = async (req, res) => {
   try {
@@ -174,7 +149,6 @@ const resolveQuery = async (req, res) => {
 module.exports = {
   addQuery,
   getQueries,
-  searchQuery,
   getCurrentAdminQueries,
   getCurrentCustomerQueries,
   getSlots,
